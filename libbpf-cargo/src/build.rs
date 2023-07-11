@@ -189,7 +189,7 @@ fn compile_one(debug: bool, source: &Path, out: &Path, clang: &Path, options: &s
 
     let output = cmd.output().context("Failed to execute clang")?;
     if !output.status.success() {
-        let err = Err(anyhow!(String::from_utf8_lossy(&output.stderr).to_string()))
+        let err = Err(anyhow!("stderr:\n{}\n\nstdout:\n{}", String::from_utf8_lossy(&output.stderr).to_string(), String::from_utf8_lossy(&output.stdout).to_string()))
             .with_context(|| {
                 format!(
                     "Command `{}` failed ({})",

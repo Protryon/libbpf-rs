@@ -256,7 +256,7 @@ impl SkeletonBuilder {
             self.skip_clang_version_check,
             &self.clang_args,
         )
-        .map_err(|e| Error::Build(e.to_string()))?;
+        .map_err(|e| Error::Build(format!("{e:#}")))?;
 
         Ok(())
     }
