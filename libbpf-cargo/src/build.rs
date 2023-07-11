@@ -189,6 +189,8 @@ fn compile_one(debug: bool, source: &Path, out: &Path, clang: &Path, options: &s
 
     let output = cmd.output().context("Failed to execute clang")?;
     if !output.status.success() {
+        eprintln!("clang stdout:\n{}", String::from_utf8_lossy(&output.stdout));
+        eprintln!("clang stderr:\n{}", String::from_utf8_lossy(&output.stderr));
         let err = Err(anyhow!("stderr:\n{}\n\nstdout:\n{}", String::from_utf8_lossy(&output.stderr).to_string(), String::from_utf8_lossy(&output.stdout).to_string()))
             .with_context(|| {
                 format!(
